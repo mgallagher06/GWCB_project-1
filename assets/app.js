@@ -53,6 +53,10 @@ function writeUserData(userId, name, location, address, state, url, zip, feature
   });
 }
 
+firebase.database().ref('playgrounds/').on("value", function(snapshot) {
+	locations = snapshot.val();
+});
+
 //link index.html to firebase;
 // add accessiblePlaygrounds to firebase;
 //populate locations array in maps with firebase objects
