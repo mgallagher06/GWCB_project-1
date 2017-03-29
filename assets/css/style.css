@@ -2,4 +2,18 @@
 - make header full-length
 - make search bar centered and shorter
 - make image smaller and centered on page
+*/
 
+.test {
+    padding: 10px;
+	text-align: center;
+}
+
+div.jumbotron{
+	background-color: white;
+}
+
+img{
+	margin: auto;
+	width: 75%;
+}
