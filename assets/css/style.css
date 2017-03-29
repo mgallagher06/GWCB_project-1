@@ -2,4 +2,9 @@
 - make header full-length
 - make search bar centered and shorter
 - make image smaller and centered on page
+*/
 
+#googleMap {
+	height: 300px;
+	width: 300px;
+}
