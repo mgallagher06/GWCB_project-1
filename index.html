@@ -32,7 +32,7 @@
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -46,14 +46,14 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
   <!-- Modal 2-->
   <div class="modal fade" id="detailModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal 2 content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -76,7 +76,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -85,6 +85,20 @@
 <img src="assets/images/playgroundImage.jpg" alt="Children at play.">
 
 </div>
+
+    <!-- connect to Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDTrEvmBOIAoS0kMWQt1goNozOBUE1oeEI",
+        authDomain: "playground-adventures.firebaseapp.com",
+        databaseURL: "https://playground-adventures.firebaseio.com",
+        storageBucket: "playground-adventures.appspot.com",
+        messagingSenderId: "382666633943"
+      };
+      firebase.initializeApp(config);
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
