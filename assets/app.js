@@ -34,3 +34,6 @@ function parse(data){
 
 parse(pgDataSet);
 console.log(accessiblePlaygrounds);
+
+//link index.html to firebase;
+// add accessiblePlaygrounds to firebase;
