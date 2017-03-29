@@ -13,7 +13,12 @@ div.jumbotron{
 	background-color: white;
 }
 
-img{
+img {
 	margin: auto;
 	width: 75%;
+}
+
+#googleMap {
+	height: 300px;
+	width: 300px;
 }
