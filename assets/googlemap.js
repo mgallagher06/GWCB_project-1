@@ -23,7 +23,8 @@
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
-        	//html
+        	//link to modal here
+          //make weather api call here
           infowindow.setContent(locations[i].name);
           infowindow.open(map, marker);
         }
