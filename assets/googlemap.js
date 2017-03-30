@@ -27,9 +27,16 @@
           //make weather api call here
           infowindow.setContent(locations[i].name);
           infowindow.open(map, marker);
+          // showInfo();
         }
       })(marker, i));
     }
+
+    // function showInfo(photo,weather,etc){
+    //   //hide map
+    //   // show weather div
+    //   // show photo
+    // }
 
 $(document).ready(function(){
   $('#myModal').on('shown.bs.modal', function(){
