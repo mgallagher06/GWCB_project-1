@@ -7,17 +7,47 @@ function initMap(){
 		// var location = locations['-alison-hardin-playground-eli-bradford-garden-of-angels-at-jo-kelly-school-fort-worth-tx'];
 		var places = [];
 
+		var Place = function(data, map) {
+			var self = this;
+			// self.defaultIcon = makeMarkerIcon('ff5c33');
+			// self.highlitedIcon = makeMarkerIcon('9653ac');
+			self.name = data.title;
+			self.type = data.type;
+			self.marker = new google.maps.Marker({
+				map: map,
+				position: data.location,
+				animation: google.maps.Animation.DROP,
+				name: data.name
+			});
+			self.marker.addListener('click', function(){
+				console.log(this);
+				// //update how to navigate to this string
+				// // var address = location.address;
+				// var addressArray = address.split(' ');
+				// var addressParam = addressArray.join('+');
+				// queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
+				// $.ajax({
+				//       url: queryURL,
+				//       method: "GET"
+				//     })
+				//     .done(function(response) {
+				//       console.log(response);
+				//     })
+
+			});
+		}
+
 		this.createMarkers = function(map) {
 			for (var key in locations){
 				if(!locations.hasOwnProperty(key)) continue;
 				var obj = locations[key];
 				console.log(obj.name);
 				// console.log( obj.name, obj.location, obj.address, obj.state, obj.zip, obj.url);
-				// places.push(new Place(place, map));
+				places.push(new Place(obj, map));
 			}
 		};
 
-		this.createMarkers();
+
 		    //locations populated by snapshot in app.js
 	    //FB always returns nested objects, not arrays, so locations is an object now.
 	    //https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
@@ -26,37 +56,26 @@ function initMap(){
 	    var map = new google.maps.Map(document.getElementById('googleMap'), {
 	      zoom: 10,
 	      //based on the user zip code and we will need to geo code to take the lat long
-	      center: new google.maps.LatLng(-33.92, 151.25),
+	      center:  {"lat" : 32.760391, "lng" : -97.371262},
 	      mapTypeId: google.maps.MapTypeId.ROADMAP
 	    });
 
-	    var marker, i;
+	    this.createMarkers(map);
 
-	    for (i = 0; i < locations.length; i++) {
-	      marker = new google.maps.Marker({
-	        position: locations[i].location,
-	        map: map
-	      });
+	    // var marker, i;
 
-	      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+	    // for (i = 0; i < locations.length; i++) {
+	    //   marker = new google.maps.Marker({
+	    //     position: locations[i].location,
+	    //     map: map
+	    //   });
 
-	          return function() {
-	            console.log(this);
-	            //update how to navigate to this string
-	            // var address = location.address;
-	            var addressArray = address.split(' ');
-	            var addressParam = addressArray.join('+');
-	            queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
-	            $.ajax({
-	                  url: queryURL,
-	                  method: "GET"
-	                })
-	                .done(function(response) {
-	                  console.log(response);
-	                })//html
-	        }
-	      })(marker, i));
-	    }
+	    //   google.maps.event.addListener(marker, 'click', (function(marker, i) {
+
+	    //       return function() {
+	    //     }
+	    //   })(marker, i));
+	    // }
 
 	    // function showInfo(photo,weather,etc){
 	    //   //hide map
