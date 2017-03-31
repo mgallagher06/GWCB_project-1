@@ -1,16 +1,27 @@
 function initMap(){
-firebase.database().ref('playgrounds/').on("value", function(snapshot) {
+		firebase.database().ref('playgrounds/').on("value", function(snapshot) {
 
 		// Use equalTo() with lat/lng bounds to choose arbitrary starting, ending, and equivalence points for queries.
 		// This can be useful for paginating data or finding items with children that have a specific value.
-		locations = snapshot.val();
-		// location = locations['-alison-hardin-playground-eli-bradford-garden-of-angels-at-jo-kelly-school-fort-worth-tx'];
+		var locations = snapshot.val();
+		// var location = locations['-alison-hardin-playground-eli-bradford-garden-of-angels-at-jo-kelly-school-fort-worth-tx'];
+		var places = [];
 
+		this.createMarkers = function(map) {
+			for (var key in locations){
+				if(!locations.hasOwnProperty(key)) continue;
+				var obj = locations[key];
+				console.log(obj.name);
+				// console.log( obj.name, obj.location, obj.address, obj.state, obj.zip, obj.url);
+				// places.push(new Place(place, map));
+			}
+		};
+
+		this.createMarkers();
 		    //locations populated by snapshot in app.js
 	    //FB always returns nested objects, not arrays, so locations is an object now.
 	    //https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
 	    //save nested objects in array locally or rewrite maps code in order to access data in objects
-	    var locations;
 
 	    var map = new google.maps.Map(document.getElementById('googleMap'), {
 	      zoom: 10,
