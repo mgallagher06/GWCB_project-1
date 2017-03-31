@@ -22,12 +22,21 @@
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-        	//link to modal here
-          //make weather api call here
-          infowindow.setContent(locations[i].name);
-          infowindow.open(map, marker);
-          // showInfo();
+
+          return function() {
+            console.log(this);
+            //update how to navigate to this string
+            var address = locations.location.address
+            var addressArray = address.split(' ');
+            var addressParam = addressArray.join('+')
+            queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+address;
+            $.ajax({
+                  url: queryURL,
+                  method: "GET"
+                })
+                .done(function(response) {
+                  console.log(response);
+                })//html
         }
       })(marker, i));
     }
