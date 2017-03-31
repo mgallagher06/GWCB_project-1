@@ -4,7 +4,7 @@ firebase.database().ref('playgrounds/').on("value", function(snapshot) {
 		// Use equalTo() with lat/lng bounds to choose arbitrary starting, ending, and equivalence points for queries.
 		// This can be useful for paginating data or finding items with children that have a specific value.
 		locations = snapshot.val();
-		console.log(locations);
+		// location = locations['-alison-hardin-playground-eli-bradford-garden-of-angels-at-jo-kelly-school-fort-worth-tx'];
 
 		    //locations populated by snapshot in app.js
 	    //FB always returns nested objects, not arrays, so locations is an object now.
@@ -32,10 +32,10 @@ firebase.database().ref('playgrounds/').on("value", function(snapshot) {
 	          return function() {
 	            console.log(this);
 	            //update how to navigate to this string
-	            var address = locations.location.address
+	            // var address = location.address;
 	            var addressArray = address.split(' ');
-	            var addressParam = addressArray.join('+')
-	            queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+address;
+	            var addressParam = addressArray.join('+');
+	            queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
 	            $.ajax({
 	                  url: queryURL,
 	                  method: "GET"
