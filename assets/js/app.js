@@ -11,8 +11,6 @@ function initMap(){
 			var self = this;
 			// self.defaultIcon = makeMarkerIcon('ff5c33');
 			// self.highlitedIcon = makeMarkerIcon('9653ac');
-			self.name = data.title;
-			self.type = data.type;
 			self.marker = new google.maps.Marker({
 				map: map,
 				position: data.location,
@@ -21,27 +19,27 @@ function initMap(){
 			});
 			self.marker.addListener('click', function(){
 				console.log(this);
-				// //update how to navigate to this string
-				// // var address = location.address;
-				// var addressArray = address.split(' ');
-				// var addressParam = addressArray.join('+');
-				// queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
-				// $.ajax({
-				//       url: queryURL,
-				//       method: "GET"
-				//     })
-				//     .done(function(response) {
-				//       console.log(response);
-				//     })
-
 			});
+
+			//geocoding query... why did I put this here? IDK I'm tired.
+			// sample format: address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
+			var address = data.address +', '+data.city+', '+data.state;
+			var addressArray = address.split(' ');
+			var addressParam = addressArray.join('+');
+			queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
+			$.ajax({
+			      url: queryURL,
+			      method: "GET"
+			    })
+			    .done(function(response) {
+			      console.log(response);
+			    })
 		}
 
 		this.createMarkers = function(map) {
 			for (var key in locations){
 				if(!locations.hasOwnProperty(key)) continue;
 				var obj = locations[key];
-				console.log(obj.name);
 				// console.log( obj.name, obj.location, obj.address, obj.state, obj.zip, obj.url);
 				places.push(new Place(obj, map));
 			}
@@ -86,7 +84,7 @@ function initMap(){
 	$(document).ready(function(){
 	  $('#myModal').on('shown.bs.modal', function(){
 	    google.maps.event.trigger(map, 'resize');
-	    map.setCenter(new google.maps.LatLng(-33.8688, 151.2195));
+	    map.setCenter(new google.maps.LatLng(32.760391, -97.371262));
 	  });
 	});
 
