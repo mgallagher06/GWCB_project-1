@@ -1,4 +1,6 @@
 
+// $('#title').on(click, funciton(){ this.toggleClass('visible')});
+
 function initMap(){
 	console.log('initMap');
 	firebase.database().ref('playgrounds/').on("value", function(snapshot) {
