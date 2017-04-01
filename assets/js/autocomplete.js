@@ -52,15 +52,17 @@
       function geolocate() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
-            console.log('position'+ position);
+            console.log(position);
             var geolocation = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
+            console.log(geolocation);
             var circle = new google.maps.Circle({
               center: geolocation,
               radius: position.coords.accuracy
             });
+            console.log(circle);
             autocomplete.setBounds(circle.getBounds());
           });
         }

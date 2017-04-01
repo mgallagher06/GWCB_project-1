@@ -14,7 +14,7 @@ function initMap(){
 		var center;
 
 		$('#submit').on('click', function(){
-			userInput = $('#search-input').val();
+			userInput = $('#autocomplete').val();
 			console.log(userInput);
 			//geocoding query... works, but why did I put this here? IDK I'm tired.
 			// this will be used to convert address or zip to lat/lng and then center map accordingly
