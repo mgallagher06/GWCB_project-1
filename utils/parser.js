@@ -1,6 +1,3 @@
-//array of accessible playground objects
-var accessiblePlaygrounds = [];
-
 //loop through the entire NPR playground data set, create an obj with relevant info for each park, push obj to array for use in other functions, such as makeMarkers.
 function parse(data){
 	pgData = data.playgrounds;
@@ -15,13 +12,13 @@ function parse(data){
 		newPg.slug = entry.slug;
 		newPg.location = latLong;
 		newPg.address = entry.address;
+		newPg.city = entry.city;
 		newPg.state = entry.state;
 		newPg.url = entry.url;
 		newPg.zip = entry.zip_code;
 		newPg.features = features(entry.features);
 
-		accessiblePlaygrounds.push(newPg);
-		writeUserData(newPg.slug, newPg.name, newPg.location, newPg.address, newPg.state, newPg.url, newPg.zip, newPg.features);
+		writeUserData(newPg.slug, newPg.name, newPg.location, newPg.address, newPg.city, newPg.state, newPg.url, newPg.zip, newPg.features);
 
 		function features(arr){
 			var pgFeatures = [];
@@ -35,25 +32,20 @@ function parse(data){
 }
 
 parse(pgDataSet);
-console.log(accessiblePlaygrounds);
 
-function writeUserData(userId, name, location, address, state, url, zip, features) {
+
+function writeUserData(userId, name, location, address, city, state, url, zip, features) {
 
 	var path = 'playgrounds/'+ userId;
-	console.log(path);
   	firebase.database().ref(path).set({
   	userId: userId,
     name: name,
     location: location,
    	address: address,
    	state: state,
+   	city: city,
    	url: url,
    	zip: zip,
    	features: features
   });
 }
-
-//link index.html to firebase;
-// add accessiblePlaygrounds to firebase;
-//populate locations array in maps with firebase objects
-//sort by region?
