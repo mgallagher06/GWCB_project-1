@@ -63,6 +63,7 @@
               radius: position.coords.accuracy
             });
             console.log(circle.getBounds());
+            console.log(autocomplete);
             autocomplete.setBounds(circle.getBounds());
           });
         }
