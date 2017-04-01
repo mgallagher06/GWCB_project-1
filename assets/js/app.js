@@ -23,8 +23,9 @@ function initMap(){
 			var address = userInput;
 			var addressArray = address.split(' ');
 			var addressParam = addressArray.join('+');
+			var components = '&components=country:US'
 			console.log(addressParam)
-			queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
+			queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam+components;
 			$.ajax({
 				url: queryURL,
 				method: "GET"
