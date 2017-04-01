@@ -1,4 +1,6 @@
+
 function initMap(){
+	console.log('initMap');
 	firebase.database().ref('playgrounds/').on("value", function(snapshot) {
 
 		// Use equalTo() with lat/lng bounds to choose arbitrary starting, ending, and equivalence points for queries.
@@ -7,6 +9,28 @@ function initMap(){
 		var locations = snapshot.val();
 		// collect Place for each location from createMarkers
 		var places = [];
+		var center;
+
+		$('#submit').on('click', function(){
+			userInput = $('#search-input').val();
+			console.log(userInput);
+			//geocoding query... works, but why did I put this here? IDK I'm tired.
+			// this will be used to convert address or zip to lat/lng and then center map accordingly
+			// sample format: address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
+			// TO-DO: get key
+			var address = userInput;
+			var addressArray = address.split(' ');
+			var addressParam = addressArray.join('+');
+			console.log(addressParam)
+			queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
+			$.ajax({
+				url: queryURL,
+				method: "GET"
+			})
+			.done(function(response) {
+				center = response.results[0].geometry.location;
+
+
 
 		var Place = function(data, map) {
 			var self = this;
@@ -31,21 +55,6 @@ function initMap(){
 				// TO-DO: figure out how to launch details screen ob click
 			});
 
-			//geocoding query... works, but why did I put this here? IDK I'm tired.
-			// this will be used to convert address or zip to lat/lng and then center map accordingly
-			// sample format: address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
-			// TO-DO: get key
-			var address = data.address +', '+data.city+', '+data.state;
-			var addressArray = address.split(' ');
-			var addressParam = addressArray.join('+');
-			queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
-			// $.ajax({
-			// 	url: queryURL,
-			// 	method: "GET"
-			// })
-			// .done(function(response) {
-			// 	console.log(response);
-			// })
 		}
 
 		//create a marker for each location in database using the Place constructor and put it on the map
@@ -61,7 +70,7 @@ function initMap(){
 			zoom: 10,
 	      //TO-DO: Center map on user input
 	      //user will submit zip code or address, which is passed to geocode api. response provides lat/lng used to center map accordingly.
-	      center:  {"lat" : 32.760391, "lng" : -97.371262},
+	      center: center,
 	      mapTypeId: google.maps.MapTypeId.ROADMAP
 	  });
 
@@ -92,12 +101,16 @@ function initMap(){
 	    $(document).ready(function(){
 	    	$('#myModal').on('shown.bs.modal', function(){
 	    		google.maps.event.trigger(map, 'resize');
-	    		map.setCenter(new google.maps.LatLng(32.760391, -97.371262));
+	    		// map.setCenter(new google.maps.LatLng(32.760391, -97.371262));
 	    	});
 	    });
 
+	    	})
+	    })
+
 	});
 }
+
 
 //link index.html to firebase;
 // add accessiblePlaygrounds to firebase;
