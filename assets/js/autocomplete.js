@@ -62,7 +62,7 @@
               center: geolocation,
               radius: position.coords.accuracy
             });
-            console.log(circle);
+            console.log(circle.getBounds());
             autocomplete.setBounds(circle.getBounds());
           });
         }
