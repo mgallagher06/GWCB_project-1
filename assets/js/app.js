@@ -2,6 +2,7 @@
 // $('#title').on(click, funciton(){ this.toggleClass('visible')});
 
 function initMap(){
+	console.log(autocomplete)
 	console.log('initMap');
 	firebase.database().ref('playgrounds/').on("value", function(snapshot) {
 
@@ -14,7 +15,7 @@ function initMap(){
 		var center;
 
 		$('#submit').on('click', function(){
-			userInput = $('#autocomplete').val();
+			userInput = autocomplete;
 			console.log(userInput);
 			//geocoding query... works, but why did I put this here? IDK I'm tired.
 			// this will be used to convert address or zip to lat/lng and then center map accordingly
