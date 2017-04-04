@@ -1,55 +1,50 @@
-
-// $('#title').on(click, funciton(){ this.toggleClass('visible')});
-
 function initMap(){
-	console.log(autocomplete)
+	//make sure map callback fires
 	console.log('initMap');
+	//grab playground data from fb
 	firebase.database().ref('playgrounds/').on("value", function(snapshot) {
+	var locations = snapshot.val();
 
-		// Use equalTo() with lat/lng bounds to choose arbitrary starting, ending, and equivalence points for queries.
-		// This can be useful for paginating data or finding items with children that have a specific value.
+	// collect Place for each location from createMarkers
+	var places = [];
+	//define map center
+	var center;
+	var input = document.getElementById('autocomplete');
+	//save google place info
+	var place;
 
-		var locations = snapshot.val();
-		// collect Place for each location from createMarkers
-		var places = [];
-		var center;
-		var input = document.getElementById('autocomplete');
-		var place;
+	// Create the autocomplete object, restricting the search to geographical
+	// location types.
+	autocomplete = new google.maps.places.Autocomplete(
+	    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+	    {types: ['geocode']});
+	//save place info on user selection
+	autocomplete.addListener('place_changed', function(){
+		  place = autocomplete.getPlace();
+	});
 
-		// Create the autocomplete object, restricting the search to geographical
-		// location types.
-		//TO-DO: add component restrictions;
-		// google.maps.places.PlaceGeometry
-		autocomplete = new google.maps.places.Autocomplete(
-		    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-		    {types: ['geocode']});
+	$('#submit').on('click', function(){
 
-		autocomplete.addListener('place_changed', function(){
-			  place = autocomplete.getPlace();
-			  console.log(place);
-		});
-
-		$('#submit').on('click', function(){
-			//geocoding query... works, but why did I put this here? IDK I'm tired.
-			// this will be used to convert address or zip to lat/lng and then center map accordingly
-			// sample format: address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
-			// TO-DO: get key
-			var address = place.formatted_address;;
-			var addressArray = address.split(' ');
-			var addressParam = addressArray.join('+');
-			var components = '&components=country:US';
-			queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam+components;
-			$.ajax({
-				url: queryURL,
-				method: "GET"
-			})
-			.done(function(response) {
-				center = response.results[0].geometry.location;
+		// Make api call to convert address or zip to lat/lng and then center map accordingly
+		// format: address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
+		// TO-DO: get key?
+		var address = place.formatted_address;;
+		var addressArray = address.split(' ');
+		var addressParam = addressArray.join('+');
+		var components = '&components=country:US';
+		queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam+components;
+		$.ajax({
+			url: queryURL,
+			method: "GET"
+		})
+		.done(function(response) {
+			center = response.results[0].geometry.location;
 
 
-
+		//Place constructor obj
 		var Place = function(data, map) {
 			var self = this;
+			//TO-DO: use this later to animate markers
 			// self.defaultIcon = makeMarkerIcon('ff5c33');
 			// self.highlitedIcon = makeMarkerIcon('9653ac');
 			self.marker = new google.maps.Marker({
@@ -68,7 +63,7 @@ function initMap(){
 			self.marker.addListener('click', function(){
 				console.log(this.name, this.city, this.location);
 
-				// TO-DO: figure out how to launch details screen ob click
+				// TO-DO: figure out how to launch details screen on click
 			});
 
 		}
@@ -84,26 +79,17 @@ function initMap(){
 
 		var map = new google.maps.Map(document.getElementById('googleMap'), {
 			zoom: 10,
-	      //TO-DO: Center map on user input
-	      //user will submit zip code or address, which is passed to geocode api. response provides lat/lng used to center map accordingly.
-	      center: center,
-	      mapTypeId: google.maps.MapTypeId.ROADMAP
-	  });
+		  //user will submit zip code or address, which is passed to geocode api. response provides lat/lng used to center map accordingly.
+		  center: center,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
 
 		this.createMarkers(map);
 
+    	})
+    })
 
-	    // $(document).ready(function(){
-	    // 	$('#myModal').on('shown.bs.modal', function(){
-	    // 		google.maps.event.trigger(map, 'resize');
-	    // 		// map.setCenter(new google.maps.LatLng(32.760391, -97.371262));
-	    // 	});
-	    // });
-
-	    	})
-	    })
-
-	});
+});
 }
 
 function googleError(){
