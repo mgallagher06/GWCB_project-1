@@ -15,6 +15,7 @@ function initMap(){
 		var center;
 		var input = document.getElementById('autocomplete');
 		var place;
+
 		// Create the autocomplete object, restricting the search to geographical
 		// location types.
 		//TO-DO: add component restrictions;
@@ -105,6 +106,9 @@ function initMap(){
 	});
 }
 
+function googleError(){
+	alert('Sorry, Google did not respond');
+}
 
 //link index.html to firebase;
 // add accessiblePlaygrounds to firebase;
