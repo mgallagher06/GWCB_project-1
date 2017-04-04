@@ -21,6 +21,7 @@ function initMap(){
 	//save place info on user selection
 	autocomplete.addListener('place_changed', function(){
 		  place = autocomplete.getPlace();
+		  console.log(place);
 	});
 
 	$('#submit').on('click', function(){
