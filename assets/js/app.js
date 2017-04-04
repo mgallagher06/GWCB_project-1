@@ -23,8 +23,7 @@ function initMap(){
 			var address = userInput;
 			var addressArray = address.split(' ');
 			var addressParam = addressArray.join('+');
-			var components = '&components=country:US'
-			console.log(addressParam)
+			var components = '&components=country:US';
 			queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam+components;
 			$.ajax({
 				url: queryURL,
@@ -100,6 +99,9 @@ function initMap(){
 	    //   // show weather div
 	    //   // show photo
 	    // }
+
+
+
 
 	    $(document).ready(function(){
 	    	$('#myModal').on('shown.bs.modal', function(){
