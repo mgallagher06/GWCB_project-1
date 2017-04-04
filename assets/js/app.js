@@ -2,7 +2,7 @@
 // $('#title').on(click, funciton(){ this.toggleClass('visible')});
 
 function initMap(){
-	console.log('initMap');
+
 	firebase.database().ref('playgrounds/').on("value", function(snapshot) {
 
 		// Use equalTo() with lat/lng bounds to choose arbitrary starting, ending, and equivalence points for queries.
@@ -15,7 +15,7 @@ function initMap(){
 
 		$('#submit').on('click', function(){
 			userInput = $('#search-input').val();
-			console.log(userInput);
+
 			//geocoding query... works, but why did I put this here? IDK I'm tired.
 			// this will be used to convert address or zip to lat/lng and then center map accordingly
 			// sample format: address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
@@ -23,7 +23,7 @@ function initMap(){
 			var address = userInput;
 			var addressArray = address.split(' ');
 			var addressParam = addressArray.join('+');
-			console.log(addressParam)
+
 			queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
 			$.ajax({
 				url: queryURL,
@@ -34,30 +34,30 @@ function initMap(){
 
 
 
-		var Place = function(data, map) {
-			var self = this;
-			// self.defaultIcon = makeMarkerIcon('ff5c33');
-			// self.highlitedIcon = makeMarkerIcon('9653ac');
-			self.marker = new google.maps.Marker({
-				map: map,
-				position: data.location,
-				animation: google.maps.Animation.DROP,
-				name: data.name,
-				address: data.address,
-				city: data.city,
-				state: data.state,
-				zip: data.zip,
-				location: data.location,
-				url: data.utl,
-				features: data.features
-			});
-			self.marker.addListener('click', function(){
-				console.log(this.name, this.city, this.location);
+				var Place = function(data, map) {
+					var self = this;
+					// self.defaultIcon = makeMarkerIcon('ff5c33');
+					// self.highlitedIcon = makeMarkerIcon('9653ac');
+					self.marker = new google.maps.Marker({
+						map: map,
+						position: data.location,
+						animation: google.maps.Animation.DROP,
+						name: data.name,
+						address: data.address,
+						city: data.city,
+						state: data.state,
+						zip: data.zip,
+						location: data.location,
+						url: data.utl,
+						features: data.features
+					});
+					self.marker.addListener('click', function(){
+						console.log(this.name, this.city, this.location);
 
-				// TO-DO: figure out how to launch details screen ob click
-			});
+						// TO-DO: figure out how to launch details screen ob click
+					});
 
-		}
+				}
 
 		//create a marker for each location in database using the Place constructor and put it on the map
 		this.createMarkers = function(map) {
@@ -77,22 +77,6 @@ function initMap(){
 	  });
 
 		this.createMarkers(map);
-
-	   	// refactored this code to use info from FB objects
-	    // var marker, i;
-
-	    // for (i = 0; i < locations.length; i++) {
-	    //   marker = new google.maps.Marker({
-	    //     position: locations[i].location,
-	    //     map: map
-	    //   });
-
-	    //   google.maps.event.addListener(marker, 'click', (function(marker, i) {
-
-	    //       return function() {
-	    //     }
-	    //   })(marker, i));
-	    // }
 
 	    // function showInfo(photo,weather,etc){
 	    //   //hide map
