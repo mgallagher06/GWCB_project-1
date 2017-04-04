@@ -13,15 +13,27 @@ function initMap(){
 		// collect Place for each location from createMarkers
 		var places = [];
 		var center;
+		var input = document.getElementById('autocomplete');
+		var place;
+		// Create the autocomplete object, restricting the search to geographical
+		// location types.
+		//TO-DO: add component restrictions;
+		// google.maps.places.PlaceGeometry
+		autocomplete = new google.maps.places.Autocomplete(
+		    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+		    {types: ['geocode']});
+
+		autocomplete.addListener('place_changed', function(){
+			  place = autocomplete.getPlace();
+			  console.log(place);
+		});
 
 		$('#submit').on('click', function(){
-			userInput = autocomplete;
-			console.log(userInput);
 			//geocoding query... works, but why did I put this here? IDK I'm tired.
 			// this will be used to convert address or zip to lat/lng and then center map accordingly
 			// sample format: address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
 			// TO-DO: get key
-			var address = userInput;
+			var address = place.formatted_address;;
 			var addressArray = address.split(' ');
 			var addressParam = addressArray.join('+');
 			var components = '&components=country:US';
@@ -79,37 +91,13 @@ function initMap(){
 
 		this.createMarkers(map);
 
-	   	// refactored this code to use info from FB objects
-	    // var marker, i;
 
-	    // for (i = 0; i < locations.length; i++) {
-	    //   marker = new google.maps.Marker({
-	    //     position: locations[i].location,
-	    //     map: map
-	    //   });
-
-	    //   google.maps.event.addListener(marker, 'click', (function(marker, i) {
-
-	    //       return function() {
-	    //     }
-	    //   })(marker, i));
-	    // }
-
-	    // function showInfo(photo,weather,etc){
-	    //   //hide map
-	    //   // show weather div
-	    //   // show photo
-	    // }
-
-
-
-
-	    $(document).ready(function(){
-	    	$('#myModal').on('shown.bs.modal', function(){
-	    		google.maps.event.trigger(map, 'resize');
-	    		// map.setCenter(new google.maps.LatLng(32.760391, -97.371262));
-	    	});
-	    });
+	    // $(document).ready(function(){
+	    // 	$('#myModal').on('shown.bs.modal', function(){
+	    // 		google.maps.event.trigger(map, 'resize');
+	    // 		// map.setCenter(new google.maps.LatLng(32.760391, -97.371262));
+	    // 	});
+	    // });
 
 	    	})
 	    })

@@ -6,9 +6,7 @@
         // location types.
         //TO-DO: add component restrictions;
         // google.maps.places.PlaceGeometry
-        autocomplete = new google.maps.places.Autocomplete(
-            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-            {types: ['geocode']});
+
 
         // When the user selects an address from the dropdown, populate the address
         // fields in the form.
