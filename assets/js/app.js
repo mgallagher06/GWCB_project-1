@@ -1,41 +1,50 @@
-
-// $('#title').on(click, funciton(){ this.toggleClass('visible')});
-
 function initMap(){
+	//make sure map callback fires
 	console.log('initMap');
+	//grab playground data from fb
 	firebase.database().ref('playgrounds/').on("value", function(snapshot) {
+	var locations = snapshot.val();
 
-		// Use equalTo() with lat/lng bounds to choose arbitrary starting, ending, and equivalence points for queries.
-		// This can be useful for paginating data or finding items with children that have a specific value.
+	// collect Place for each location from createMarkers
+	var places = [];
+	//define map center
+	var center;
+	var input = document.getElementById('autocomplete');
+	//save google place info
+	var place;
 
-		var locations = snapshot.val();
-		// collect Place for each location from createMarkers
-		var places = [];
-		var center;
+	// Create the autocomplete object, restricting the search to geographical
+	// location types.
+	autocomplete = new google.maps.places.Autocomplete(
+	    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+	    {types: ['geocode']});
+	//save place info on user selection
+	autocomplete.addListener('place_changed', function(){
+		  place = autocomplete.getPlace();
+	});
 
-		$('#submit').on('click', function(){
-			userInput = $('#search-input').val();
-			console.log(userInput);
-			//geocoding query... works, but why did I put this here? IDK I'm tired.
-			// this will be used to convert address or zip to lat/lng and then center map accordingly
-			// sample format: address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
-			// TO-DO: get key
-			var address = userInput;
-			var addressArray = address.split(' ');
-			var addressParam = addressArray.join('+');
-			console.log(addressParam)
-			queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam;
-			$.ajax({
-				url: queryURL,
-				method: "GET"
-			})
-			.done(function(response) {
-				center = response.results[0].geometry.location;
+	$('#submit').on('click', function(){
+
+		// Make api call to convert address or zip to lat/lng and then center map accordingly
+		// format: address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
+		// TO-DO: get key?
+		var address = place.formatted_address;;
+		var addressArray = address.split(' ');
+		var addressParam = addressArray.join('+');
+		var components = '&components=country:US';
+		queryURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+addressParam+components;
+		$.ajax({
+			url: queryURL,
+			method: "GET"
+		})
+		.done(function(response) {
+			center = response.results[0].geometry.location;
 
 
-
+		//Place constructor obj
 		var Place = function(data, map) {
 			var self = this;
+			//TO-DO: use this later to animate markers
 			// self.defaultIcon = makeMarkerIcon('ff5c33');
 			// self.highlitedIcon = makeMarkerIcon('9653ac');
 			self.marker = new google.maps.Marker({
@@ -54,7 +63,7 @@ function initMap(){
 			self.marker.addListener('click', function(){
 				console.log(this.name, this.city, this.location);
 
-				// TO-DO: figure out how to launch details screen ob click
+				// TO-DO: figure out how to launch details screen on click
 			});
 
 		}
@@ -70,49 +79,22 @@ function initMap(){
 
 		var map = new google.maps.Map(document.getElementById('googleMap'), {
 			zoom: 10,
-	      //TO-DO: Center map on user input
-	      //user will submit zip code or address, which is passed to geocode api. response provides lat/lng used to center map accordingly.
-	      center: center,
-	      mapTypeId: google.maps.MapTypeId.ROADMAP
-	  });
+		  //user will submit zip code or address, which is passed to geocode api. response provides lat/lng used to center map accordingly.
+		  center: center,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
 
 		this.createMarkers(map);
 
-	   	// refactored this code to use info from FB objects
-	    // var marker, i;
+    	})
+    })
 
-	    // for (i = 0; i < locations.length; i++) {
-	    //   marker = new google.maps.Marker({
-	    //     position: locations[i].location,
-	    //     map: map
-	    //   });
-
-	    //   google.maps.event.addListener(marker, 'click', (function(marker, i) {
-
-	    //       return function() {
-	    //     }
-	    //   })(marker, i));
-	    // }
-
-	    // function showInfo(photo,weather,etc){
-	    //   //hide map
-	    //   // show weather div
-	    //   // show photo
-	    // }
-
-	    $(document).ready(function(){
-	    	$('#myModal').on('shown.bs.modal', function(){
-	    		google.maps.event.trigger(map, 'resize');
-	    		// map.setCenter(new google.maps.LatLng(32.760391, -97.371262));
-	    	});
-	    });
-
-	    	})
-	    })
-
-	});
+});
 }
 
+function googleError(){
+	alert('Sorry, Google did not respond');
+}
 
 //link index.html to firebase;
 // add accessiblePlaygrounds to firebase;
