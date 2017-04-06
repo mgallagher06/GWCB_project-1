@@ -63,6 +63,8 @@ function initMap(){
 			});
 			self.marker.addListener('click', function(){
 				console.log(this.name, this.city, this.location);
+				document.getElementById('address').innerHTML = this.address;
+				document.getElementById('accessability').innerHTML = this.features
 
 				// TO-DO: figure out how to launch details screen on click
 			});
