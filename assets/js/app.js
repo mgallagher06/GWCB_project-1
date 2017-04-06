@@ -21,7 +21,7 @@ function initMap(){
 	//save place info on user selection
 	autocomplete.addListener('place_changed', function(){
 		  place = autocomplete.getPlace();
-		  console.log(place);
+
 	});
 
 	$('#submit').on('click', function(){
@@ -39,7 +39,7 @@ function initMap(){
 			method: "GET"
 		})
 		.done(function(response) {
-			center = response.results[0].geometry.location;
+			center = response.results[0].geometry.location; 
 
 
 		//Place constructor obj
@@ -85,13 +85,23 @@ function initMap(){
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 			});
 
-		this.createMarkers(map);
+		this.createMarkers(map);	
+
+
+		//makes the map work inside of a modal and centers to the geocode position
+		$('#myModal').on('shown.bs.modal', function(){
+	    		google.maps.event.trigger(map, 'resize');
+	    		map.setCenter(new google.maps.LatLng(center));
+	    	});
 
     	})
     })
 
+
+
 });
 }
+
 
 function googleError(){
 	alert('Sorry, Google did not respond');
