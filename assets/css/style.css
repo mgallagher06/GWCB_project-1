@@ -3,22 +3,43 @@
 - make search bar centered and shorter
 - make image smaller and centered on page
 */
-
+@font-face {
+	font-family: ButterflyKids-Regular;
+	src: url('ButterflyKids-Regular.ttf')
+}
 .test {
     padding: 10px;
 	text-align: center;
 }
 
-div.jumbotron{
+#header {
 	background-color: white;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-bottom: 10px; 
+	font-family: ButterflyKids-Regular;
+}
+
+#title {
+	font-size: 80px; 
+	color: #00b500; 
+}
+
+#title-description {
+	font-size: 30px; 
+	color: blue;
+}
+
+#locationField {
+	padding-bottom: 10px; 
 }
 
 img {
-	margin: auto;
-	width: 75%;
+	/*margin: auto;*/
+	width: 85%;
 }
 
 #gMap {
 	height: 400px;
-	width: 100%;
 }
+

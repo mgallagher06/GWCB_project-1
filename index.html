@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<meta charset="utf-8">t
+	<meta charset="utf-8">
 	<title>Playground Adventures!</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,9 +14,9 @@
 
 
 <!-- Jumbrotron Screen -->
-<div class="jumbotron">
+<div class="jumbotron" id="header">
   <h1 id='title' class="visible">Playground Adventures!</h1>
-  <p> A resource to find the perfect playground </p>
+  <p id='title-description'> A resource to find the perfect playground </p>
 </div>
 
 
@@ -26,37 +26,16 @@
       <input id="autocomplete" placeholder="Enter your address"
              onFocus="geolocate()" type="text"></input>
     </div>
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="submit">Submit</button>
+  <button type="button" class="btn btn-info btn-lg" id="submit">Submit</button>
   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#detailModal">Details</button>
 </form>
 <br>
 
-  <!-- Modal -->
-<!--   <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog"> -->
-
-      <!-- Modal content-->
-   <!--    <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Google Maps</h4>
-        </div>
-        <div class="modal-body">
-          <div class="modal-body" id="googleMap"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div> -->
-
-  <!-- Modal 2-->
+  <!-- Detail Modal-->
   <div class="modal fade" id="detailModal" role="dialog">
     <div class="modal-dialog">
 
-      <!-- Modal 2 content-->
+      <!-- Detail Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -89,10 +68,10 @@
 
 
 <!-- Input image for mainpage -->
-<div style="height:100%; width:100%;">
+
 <div class="col-sm-12" id="gMap">
-<img src="assets/images/playgroundImage.jpg" alt="Children at play.">
-</div>
+<img id="kidsPlay" src="assets/images/playgroundImage.jpg" alt="Children at play.">
+
 </div>
 </div>
 

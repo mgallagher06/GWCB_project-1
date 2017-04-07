@@ -63,6 +63,7 @@ function initMap(){
 			});
 			self.marker.addListener('click', function(){
 
+				//opens the detail modal on clicking the marker
 				$('#detailModal').modal('show')
 
 				var name = this.name || 'no name provided';
@@ -107,12 +108,6 @@ function initMap(){
 
 				      $('#weatherIcon').html(addImage);
 
-				      // tempDiv.append(addImage);
-
-				      // tempDiv.append(pOne);
-
-			       //    $("#weather").prepend(tempDiv);
-
       });
 
 
@@ -137,13 +132,6 @@ function initMap(){
 			});
 
 		this.createMarkers(map);
-
-
-		// makes the map work inside of a modal and centers to the geocode position
-		// $('#gMap').on('shown.bs.modal', function(){
-	 //    		google.maps.event.trigger(map, 'resize');
-	 //    		map.setCenter(new google.maps.LatLng(center));
-	 //    	});
 
     	})
     })
