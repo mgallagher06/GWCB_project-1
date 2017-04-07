@@ -127,7 +127,7 @@ function initMap(){
 			}
 		};
 
-		var map = new google.maps.Map(document.getElementById('googleMap'), {
+		var map = new google.maps.Map(document.getElementById('gMap'), {
 			zoom: 10,
 		  //user will submit zip code or address, which is passed to geocode api. response provides lat/lng used to center map accordingly.
 		  center: center,
@@ -138,10 +138,10 @@ function initMap(){
 
 
 		// makes the map work inside of a modal and centers to the geocode position
-		$('#myModal').on('shown.bs.modal', function(){
-	    		google.maps.event.trigger(map, 'resize');
-	    		map.setCenter(new google.maps.LatLng(center));
-	    	});
+		// $('#gMap').on('shown.bs.modal', function(){
+	 //    		google.maps.event.trigger(map, 'resize');
+	 //    		map.setCenter(new google.maps.LatLng(center));
+	 //    	});
 
     	})
     })

@@ -18,7 +18,7 @@ img {
 	width: 75%;
 }
 
-#googleMap {
-	height: 300px;
-	width: 300px;
+#gMap {
+	height: 400px;
+	width: 100%;
 }
