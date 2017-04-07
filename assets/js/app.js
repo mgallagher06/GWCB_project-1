@@ -39,7 +39,7 @@ function initMap(){
 			method: "GET"
 		})
 		.done(function(response) {
-			center = response.results[0].geometry.location; 
+			center = response.results[0].geometry.location;
 
 
 		//Place constructor obj
@@ -63,15 +63,23 @@ function initMap(){
 			});
 			self.marker.addListener('click', function(){
 				console.log(this.name, this.city, this.location);
-				document.getElementById('address').innerHTML = this.address;
-				document.getElementById('accessability').innerHTML = this.features
+				var name = this.name || 'no name provided';
+				var address = this.address || 'no address provided';
+				var city = this.city || 'no city provided';
+				var state = this.state || 'no state provided';
+				var features = this.features.join(', ') || 'no accessibility features provided';
+				var contact = this.url || 'no contact provided';
+				document.getElementById('name').innerHTML = name;
+				document.getElementById('address').innerHTML = `${address}, ${city}, ${state}` || 'no address provided';
+				document.getElementById('accessibility').innerHTML = features || 'no accessibility features provided';
+				document.getElementById('contact').innerHTML = contact || 'no contact provided';
 
 				// TO-DO: figure out how to launch details screen on click
 
 				//weather
 
 			      	var theLat= this.location.lat;
-			      	var theLon = this.location.lng; 
+			      	var theLon = this.location.lng;
 
 			        var queryURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + theLat + "&lon=" + theLon + "&units=imperial&APPID=947f5787036d4b030aeef7beb74b6049"
 
@@ -81,23 +89,23 @@ function initMap(){
 			          method: "GET"
 			        }).done(function(response) {
 
-				    	console.log(response); 
+				    	console.log(response);
 
-				      // Storing the temp data and round the decimal points out and up 
+				      // Storing the temp data and round the decimal points out and up
 				      var temp = Math.ceil(response.main.temp);
 				      var theTemp = $("<h2>").html("Temp: " + temp + "&#8457;");
-				      
-				      $("#temp").html(theTemp); 
+
+				      $("#temp").html(theTemp);
 
 				      console.log(temp);
 
-				      //image for 
-				      var image = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png"; 
+				      //image for
+				      var image = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
 				      var addImage = $("<img>").attr("src", image);
 
-				      $('#weatherIcon').html(addImage); 
+				      $('#weatherIcon').html(addImage);
 
-				      // tempDiv.append(addImage); 
+				      // tempDiv.append(addImage);
 
 				      // tempDiv.append(pOne);
 
@@ -126,7 +134,7 @@ function initMap(){
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 			});
 
-		this.createMarkers(map);	
+		this.createMarkers(map);
 
 
 		// makes the map work inside of a modal and centers to the geocode position
