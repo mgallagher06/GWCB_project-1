@@ -62,7 +62,9 @@ function initMap(){
 				features: data.features
 			});
 			self.marker.addListener('click', function(){
-				console.log(this.name, this.city, this.location);
+
+				$('#detailModal').modal('show')
+
 				var name = this.name || 'no name provided';
 				var address = this.address || 'no address provided';
 				var city = this.city || 'no city provided';
