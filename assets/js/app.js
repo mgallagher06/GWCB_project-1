@@ -84,7 +84,7 @@ function initMap(){
 			      	var theLat= this.location.lat;
 			      	var theLon = this.location.lng;
 
-			        var queryURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + theLat + "&lon=" + theLon + "&units=imperial&APPID=947f5787036d4b030aeef7beb74b6049"
+			        var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + theLat + "&lon=" + theLon + "&units=imperial&APPID=947f5787036d4b030aeef7beb74b6049"
 
 			        //Weather API data
 			        $.ajax({
