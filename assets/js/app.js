@@ -1,6 +1,6 @@
+
 function initMap(){
 	//make sure map callback fires
-	console.log('initMap');
 	//grab playground data from fb
 	firebase.database().ref('playgrounds/').on("value", function(snapshot) {
 	var locations = snapshot.val();
@@ -62,7 +62,10 @@ function initMap(){
 				features: data.features
 			});
 			self.marker.addListener('click', function(){
-				console.log(this.name, this.city, this.location);
+
+				//opens the detail modal on clicking the marker
+				$('#detailModal').modal('show')
+
 				var name = this.name || 'no name provided';
 				var address = this.address || 'no address provided';
 				var city = this.city || 'no city provided';
@@ -88,30 +91,37 @@ function initMap(){
 			          url: queryURL,
 			          method: "GET"
 			        }).done(function(response) {
-
-				    	console.log(response);
-
 				      // Storing the temp data and round the decimal points out and up
 				      var temp = Math.ceil(response.main.temp);
-				      var theTemp = $("<h2>").html("Temp: " + temp + "&#8457;");
+				      var theTemp = $("<h2>").html(temp + "&#8457;");
 
 				      $("#temp").html(theTemp);
 
-				      console.log(temp);
-
-				      //image for
+				      //image for weather icon 
 				      var image = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
 				      var addImage = $("<img>").attr("src", image);
+				      var idImage = addImage.attr("id", "weatherIcon")
+					  $('#weatherIcon').html(idImage);
+ 
 
-				      $('#weatherIcon').html(addImage);
+      				});
 
-				      // tempDiv.append(addImage);
+			        // beta is not working for UV index maybe someone else can fix this in the morning? 
 
-				      // tempDiv.append(pOne);
+       				// var date = new Date();
+					// var iso = date.toISOString();
+					// var newLat = Math.ceil(theLat); 
+					// var newLon = Math.ceil(theLon); 
+					// console.log(iso); 
 
-			       //    $("#weather").prepend(tempDiv);
-
-      });
+					// var queryURL = "http://api.openweathermap.org/v3/uvi/" + newLat + "," + newLon + "/" + iso + ".json?appid=947f5787036d4b030aeef7beb74b6049"
+					// console.log(queryURL); 
+					// $.ajax({
+			  //         url: queryURL,
+			  //         method: "GET"
+			  //       }).done(function(response) { 
+			  //       	console.log(response); 
+			  //       });
 
 
 			});
@@ -127,7 +137,7 @@ function initMap(){
 			}
 		};
 
-		var map = new google.maps.Map(document.getElementById('googleMap'), {
+		var map = new google.maps.Map(document.getElementById('gMap'), {
 			zoom: 10,
 		  //user will submit zip code or address, which is passed to geocode api. response provides lat/lng used to center map accordingly.
 		  center: center,
@@ -135,13 +145,6 @@ function initMap(){
 			});
 
 		this.createMarkers(map);
-
-
-		// makes the map work inside of a modal and centers to the geocode position
-		$('#myModal').on('shown.bs.modal', function(){
-	    		google.maps.event.trigger(map, 'resize');
-	    		map.setCenter(new google.maps.LatLng(center));
-	    	});
 
     	})
     })
