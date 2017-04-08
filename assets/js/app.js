@@ -1,6 +1,6 @@
+
 function initMap(){
 	//make sure map callback fires
-	console.log('initMap');
 	//grab playground data from fb
 	firebase.database().ref('playgrounds/').on("value", function(snapshot) {
 	var locations = snapshot.val();
@@ -91,24 +91,37 @@ function initMap(){
 			          url: queryURL,
 			          method: "GET"
 			        }).done(function(response) {
-
-				    	console.log(response);
-
 				      // Storing the temp data and round the decimal points out and up
 				      var temp = Math.ceil(response.main.temp);
-				      var theTemp = $("<h2>").html("Temp: " + temp + "&#8457;");
+				      var theTemp = $("<h2>").html(temp + "&#8457;");
 
 				      $("#temp").html(theTemp);
 
-				      console.log(temp);
-
-				      //image for
+				      //image for weather icon 
 				      var image = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
 				      var addImage = $("<img>").attr("src", image);
+				      var idImage = addImage.attr("id", "weatherIcon")
+					  $('#weatherIcon').html(idImage);
+ 
 
-				      $('#weatherIcon').html(addImage);
+      				});
 
-      });
+			        // beta is not working for UV index maybe someone else can fix this in the morning? 
+
+       				// var date = new Date();
+					// var iso = date.toISOString();
+					// var newLat = Math.ceil(theLat); 
+					// var newLon = Math.ceil(theLon); 
+					// console.log(iso); 
+
+					// var queryURL = "http://api.openweathermap.org/v3/uvi/" + newLat + "," + newLon + "/" + iso + ".json?appid=947f5787036d4b030aeef7beb74b6049"
+					// console.log(queryURL); 
+					// $.ajax({
+			  //         url: queryURL,
+			  //         method: "GET"
+			  //       }).done(function(response) { 
+			  //       	console.log(response); 
+			  //       });
 
 
 			});
