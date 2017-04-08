@@ -4,8 +4,8 @@
 - make image smaller and centered on page
 */
 @font-face {
-	font-family: ButterflyKids-Regular;
-	src: url('ButterflyKids-Regular.ttf')
+	font-family: Doctor_Soot_Bold;
+	src: url('Doctor_Soot_Bold.ttf')
 }
 .test {
     padding: 10px;
@@ -16,20 +16,28 @@
 	background-color: white;
 	padding-top: 0px;
 	padding-bottom: 0px;
-	margin-bottom: 10px; 
-	font-family: ButterflyKids-Regular;
+	margin-top: 5px;
+	margin-bottom: 5px; 
+	font-family: Doctor_Soot_Bold;
 }
 
 #title {
-	font-size: 80px; 
+	font-size: 65px; 
 	color: #00b500; 
+	margin-top: 5px;
+	margin-bottom: 5px; 
 }
 
 #title-description {
-	font-size: 30px; 
+	font-size: 25px; 
+	margin-bottom: 5px; 
 	color: blue;
 }
 
+#inputArea{
+	margin-top: 5px;
+	margin-bottom: 5px; 
+}
 #locationField {
 	padding-bottom: 10px; 
 }
@@ -40,6 +48,6 @@ img {
 }
 
 #gMap {
-	height: 400px;
+	height: 800px;
 }
 

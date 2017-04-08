@@ -2,35 +2,13 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<meta charset="utf-8">
-	<title>Playground Adventures!</title>
+  <meta charset="utf-8">
+  <title>Playground Adventures!</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
-
-<div class="container test">
-
-
-<!-- Jumbrotron Screen -->
-<div class="jumbotron" id="header">
-  <h1 id='title' class="visible">Playground Adventures!</h1>
-  <p id='title-description'> A resource to find the perfect playground </p>
-</div>
-
-
-<!-- Nav Bar - Search Function -->
-<form class="navbar-form navbar-center" role="search">
-    <div id="locationField">
-      <input id="autocomplete" placeholder="Enter your address"
-             onFocus="geolocate()" type="text"></input>
-    </div>
-  <button type="button" class="btn btn-info btn-lg" id="submit">Submit</button>
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#detailModal">Details</button>
-</form>
-<br>
-
   <!-- Detail Modal-->
   <div class="modal fade" id="detailModal" role="dialog">
     <div class="modal-dialog">
@@ -66,10 +44,32 @@
     </div>
   </div>
 
+<div class="container test" id="gMap">
+
+
+<!-- Jumbrotron Screen -->
+<div class="jumbotron" id="header">
+  <h1 id='title' class="visible">Playground Adventures!</h1>
+  <p id='title-description'> A resource to find the perfect playground </p>
+</div>
+
+
+<!-- Nav Bar - Search Function -->
+<form class="navbar-form navbar-center" id="inputArea" role="search">
+    <div id="locationField">
+      <input id="autocomplete" placeholder="Enter your address"
+             onFocus="geolocate()" type="text"></input>
+    </div>
+  <button type="button" class="btn btn-info btn-lg" id="submit">Submit</button>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#detailModal">Details</button>
+</form>
+<br>
+
+
 
 <!-- Input image for mainpage -->
 
-<div class="col-sm-12" id="gMap">
+<div class="col-sm-12">
 <img id="kidsPlay" src="assets/images/playgroundImage.jpg" alt="Children at play.">
 
 </div>
